@@ -22,7 +22,6 @@ namespace JustinBB.Models
         [ForeignKey(typeof(User), OnDelete = "CASCADE")]
         public int UserID { get; set; }
 
-        [Unique]
         public int Direction { get; set; }
     }
 }
