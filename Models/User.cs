@@ -19,7 +19,7 @@ namespace JustinBB.Models
         public string Password { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; set; } = DateTime.Now;
 
         public long Cash { get; set; }
 
