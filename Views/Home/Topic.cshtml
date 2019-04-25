@@ -33,7 +33,7 @@
     @foreach (var p in posts) {
         <div class="card" style="padding: 20px;" id="post@(p.ID)">
             <div class="card-block">
-                <small>#@(p.ID).</small>
+                <!-- <small>#@(p.ID).</small> -->
                 <strong>@p.Username</strong>
                 (<a href="#post@(p.ID)" post-id="@p.ID" voteurl="/Home/Vote/@p.ID/mid"><span id="score@(p.ID)">@p.Score</span></a>)
                 @if (username != null) {
