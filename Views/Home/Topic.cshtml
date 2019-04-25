@@ -1,0 +1,77 @@
+@using Microsoft.AspNetCore.Http
+@using System.Collections
+@using JustinBB.Models
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Home Page";
+
+    string username = @HttpContextAccessor.HttpContext.Session.GetString("username");
+}
+
+@{
+    var t = (Topic) ViewData["topic"];
+    var posts = (List<Post>) ViewData["posts"];
+}
+
+<div class="card" style="padding: 20px;">
+    <div class="card-block">
+        <h1 class="card-title">@t.Title</h1>
+        <footer>
+            <small>Updated @(t.LastPost.Date). @(t.Count) posts.</small>
+        </footer>
+    </div>
+</div>
+<br />
+<!-- <h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3> -->
+
+@if (ViewData["err"] != null) {
+    @ViewData["err"];
+}
+
+<div id="posts">
+    @foreach (var p in posts) {
+        <div class="card" style="padding: 20px;" id="post@(p.ID)">
+            <div class="card-block">
+                <small>#@(p.ID).</small>
+                <strong>@p.Username</strong>
+                (<a href="#post@(p.ID)" post-id="@p.ID" voteurl="/Home/Vote/@p.ID/mid"><span id="score@(p.ID)">@p.Score</span></a>)
+                @if (username != null) {
+                    <a href="#post(@p.ID)" post-id="@p.ID" voteurl="/Home/Vote/@p.ID/up">👍</a>
+                    <a href="#post(@p.ID)" post-id="@p.ID" voteurl="/Home/Vote/@p.ID/down">👎</a>
+                }
+                <p class="card-text">
+                    @if (p.ImageID != null) {
+                        <img src="/uploads/thumbnails/@p.ImageID" thumb-src="/uploads/thumbnails/@p.ImageID" orig-src="/uploads/@p.ImageID" thumb="1">
+                        <br />
+                    }
+                    @p.Contents
+                </p>
+                <footer>
+                    <small>@p.Date</small>
+                </footer>
+            </div>
+        </div>
+        <br />
+    }
+</div>
+
+@if (username != null) {
+    <form action="/Home/NewPost" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+            <br />
+            <hr>
+            <label for="contents">
+                <h4>Reply to this thread</h4>
+            </label>
+            <br />
+            <input type="hidden" value="@t.ID" name="topicid" />
+            <input type="file" name="file" id="file">
+            <textarea class="form-control" id="contents" rows="10" name="contents"></textarea>
+        </div>
+        <!-- <button type="button" class="btn btn-default">Submit</button> -->
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+} else {
+    <p>Login to reply to this thread.</p>
+}

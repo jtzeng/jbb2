@@ -1,0 +1,8 @@
+obj/
+uploads/
+bin/
+
+appsettings.json
+appsettings.Development.json
+*.old
+.DS_Store

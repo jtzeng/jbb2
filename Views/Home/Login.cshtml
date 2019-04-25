@@ -1,0 +1,42 @@
+﻿@model JustinBB.Models.User
+@{
+    ViewData["Title"] = "Login/Register";
+}
+<h2>@ViewData["Title"]</h2>
+
+@if (ViewData["err"] != null) {
+    @ViewData["err"];
+}
+
+
+<!-- @using (Html.BeginForm("Login", "HomeController")) {
+    @Html.ValidationSummary(true);
+
+    <div class="form-group" style="width: 500px">
+        @Html.LabelFor(m => m.Username)
+        @Html.TextBoxFor(m => m.Username)
+    </div>
+
+    <div class="form-group" style="width: 500px">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password)
+    </div>
+} -->
+
+<form action="" method="post">
+    <div class="form-group" style="width: 500px">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username">
+    </div>
+    <div class="form-group" style="width: 500px">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password">
+    </div>
+    <div class="form-check">
+        <label for="Register" class="form-check-label">
+            <input type="checkbox" class="form-check-input" id="Register" name="Register" value="true"> Register a new account
+        </label>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary">
+</form>
+
